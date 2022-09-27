@@ -1,4 +1,4 @@
-import { BellIcon, HomeIcon, LogoutIcon, SettingsIcon } from "./icons";
+import { BellIcon, HomeIcon, LogoutIcon, SettingsIcon } from "../icons";
 import Logo from "./Logo";
 import MenuItem from "./MenuItem";
 
