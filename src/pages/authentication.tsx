@@ -38,7 +38,7 @@ export default function Authentication() {
     }
 
     return (
-        <div className="flex h-screen items-center justify-center">
+        <div className="flex h-100 min-h-screen items-center justify-center">
             <div className={`hidden md:block md:w-1/2 lg:w-2/3`}>
                 <img 
                     src="https://source.unsplash.com/random" 
@@ -83,6 +83,7 @@ export default function Authentication() {
                 <button onClick={submit} className={`
                     w-full bg-indigo-500 hover:bg-indigo-400
                     text-white rounded-lg px-4 py-3 mt-6
+                    min-w-fit
                 `}>
                     {mode === "login" ? "Login" : "Registar"}
                 </button>
@@ -92,11 +93,10 @@ export default function Authentication() {
                 <button onClick={submitWithGoogle} className={`
                     w-full bg-red-500 hover:bg-red-400
                     text-white rounded-lg px-4 py-3
+                    
                 `}>
                     <div className="flex justify-center items-center gap-3">
-                        <div className="bg-white rounded-full">
-                            {GoogleIcon(7)}
-                        </div> 
+                        {GoogleIcon(24)}
                         <span>Entrar com Conta Google</span> 
                     </div>
                 </button>
