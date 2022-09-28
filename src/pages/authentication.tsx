@@ -40,7 +40,7 @@ export default function Authentication() {
     return (
         <div className="flex h-100 min-h-screen items-center justify-center">
             <div className={`hidden md:block md:w-1/2 lg:w-2/3`}>
-                <Image 
+                <img 
                     src="https://source.unsplash.com/random" 
                     alt="Imagem da tela de autenticação"
                     className="h-screen w-full object-cover"
