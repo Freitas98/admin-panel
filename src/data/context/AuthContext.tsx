@@ -65,7 +65,10 @@ export function AuthProvider(props) {
             
             configSession(response.user);
             router.push("/")
-        } finally {
+        } catch (e){
+            console.log(e)
+        } 
+        finally {
             setLoading(false)
         }
     }
