@@ -1,9 +1,12 @@
 import { useState } from "react";
 import AuthInput from "../components/auth/AuthInput";
 import { GoogleIcon, WarningIcon } from "../components/icons";
+import useAuth from "../data/hook/useAuth";
 
 export default function Authentication() {
     
+    const { user, loginWithGoogle } = useAuth();
+
     const [error, setError] = useState(null)
     const [mode, setMode] = useState<"login" | "signup">("login")
     const [email, setEmail] = useState("");
@@ -12,6 +15,7 @@ export default function Authentication() {
     function submit() {
         if(mode === "login"){
             console.log("login")
+            showError("Ocorreu um erro no login.")
         } else {
             console.log("signup")
         }
@@ -74,7 +78,7 @@ export default function Authentication() {
 
                 <hr className="my-6 border-gray-300 w-full"/>
             
-                <button onClick={submit} className={`
+                <button onClick={loginWithGoogle} className={`
                     w-full bg-red-500 hover:bg-red-400
                     text-white rounded-lg px-4 py-3
                 `}>
