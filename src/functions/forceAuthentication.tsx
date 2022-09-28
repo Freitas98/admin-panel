@@ -5,14 +5,14 @@ import router from "next/router";
 import loadingImage from "../../public/images/loading.gif";
 import useAuth from "../data/hook/useAuth";
 
-export default function forceAuthentication(jsx) {
+export default function ForceAuthentication(jsx) {
 
     const { user, loading } = useAuth();
     
     function renderContent() {
         return (
             <>
-                <Script dangerouslySetInnerHTML={{
+                <Script id="checkCookieScript" dangerouslySetInnerHTML={{
                         __html: `
                             if(!document.cookie?.includes("admin-panel-auth")){
                                 window.location.href = "/authentication"
@@ -31,7 +31,7 @@ export default function forceAuthentication(jsx) {
                 flex justify-center items-center
                 h-screen
             `}>
-                <Image src={loadingImage} />
+                <Image src={loadingImage} alt="Imagem de carregamento"/>
             </div>
         )
     }
