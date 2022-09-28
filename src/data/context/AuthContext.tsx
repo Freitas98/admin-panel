@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react"
 import { auth } from "../../firebase/config"
-import { User as FirebaseUser, signInWithPopup, GoogleAuthProvider, onIdTokenChanged, signOut } from "firebase/auth";
+import { User as FirebaseUser, signInWithPopup, GoogleAuthProvider, onIdTokenChanged, signOut, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "firebase/auth";
 import User from "../../model/User"
 import router from "next/router";
 import Cookies from "js-cookie"
@@ -9,6 +9,8 @@ interface AuthContextProps {
     user?: User
     loading?: boolean
     loginWithGoogle?: () => Promise<void>
+    signup?: (email: string, password: string) => Promise<void>
+    login?: (email: string, password: string) => Promise<void>
     logout?: () => Promise<void>
 }
 
@@ -63,12 +65,33 @@ export function AuthProvider(props) {
                 new GoogleAuthProvider()
             )
             
-            configSession(response.user);
+            await configSession(response.user);
             router.push("/")
-        } catch (e){
-            console.log(e)
-        } 
-        finally {
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    async function login(email, password) {
+        try {
+            setLoading(true)
+            const response = await signInWithEmailAndPassword(auth, email, password)
+
+            await configSession(response.user);
+            router.push("/")
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    async function signup(email, password) {
+        try {
+            setLoading(true)
+            const response = await createUserWithEmailAndPassword(auth, email, password)
+
+            await configSession(response.user);
+            router.push("/")
+        } finally {
             setLoading(false)
         }
     }
@@ -98,6 +121,8 @@ export function AuthProvider(props) {
             user,
             loading,
             loginWithGoogle,
+            login,
+            signup,
             logout,
         }}>
             {props.children}

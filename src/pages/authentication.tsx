@@ -5,19 +5,30 @@ import useAuth from "../data/hook/useAuth";
 
 export default function Authentication() {
     
-    const { user, loginWithGoogle } = useAuth();
+    const { signup, loginWithGoogle, login } = useAuth();
 
     const [error, setError] = useState(null)
     const [mode, setMode] = useState<"login" | "signup">("login")
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     
-    function submit() {
-        if(mode === "login"){
-            console.log("login")
-            showError("Ocorreu um erro no login.")
-        } else {
-            console.log("signup")
+    async function submit() {
+        try {
+            if(mode === "login"){
+                await login(email, password);
+            } else {
+                await signup(email, password);
+            }
+        } catch (error) {
+            showError(error?.message ?? "Ocorreu um erro desconhecido")
+        }
+    }
+
+    async function submitWithGoogle() {
+        try {
+            await loginWithGoogle()
+        } catch (error) {
+            showError(error?.message ?? "Ocorreu um erro desconhecido")
         }
     }
 
@@ -78,7 +89,7 @@ export default function Authentication() {
 
                 <hr className="my-6 border-gray-300 w-full"/>
             
-                <button onClick={loginWithGoogle} className={`
+                <button onClick={submitWithGoogle} className={`
                     w-full bg-red-500 hover:bg-red-400
                     text-white rounded-lg px-4 py-3
                 `}>
