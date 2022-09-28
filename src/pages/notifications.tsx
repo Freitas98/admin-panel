@@ -5,8 +5,8 @@ export default function Notifications() {
   const context = useAppData()
   
   return (
-    <Layout title="Notificações" subtitle="Aqui é onde podemos observar as notificações.">
-      <h3>Notificações Conteúdo</h3>
+    <Layout title="Notificações" subtitle="Subtítulo da página de notificações">
+      <h3>Página de Notificações</h3>
     </Layout>
   )
 }
