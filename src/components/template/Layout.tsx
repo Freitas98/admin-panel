@@ -2,6 +2,7 @@ import Header from "./Header"
 import SideMenu from "./SideMenu"
 import Content from "./Content"
 import useAppData from "../../data/hook/useAppData"
+import ForceAuthentication from "../auth/ForceAuthentication"
 
 interface LayoutProps {
     title: string
@@ -13,21 +14,23 @@ export default function Layout(props: LayoutProps) {
     const { theme, changeTheme } = useAppData();
     
     return (
-        <div className={`
-            ${theme}
-            flex h-screen w-screen
-        `}>
-            <SideMenu />
+        <ForceAuthentication>
             <div className={`
-                flex flex-col 
-                bg-gray-300 dark:bg-gray-800
-                p-7 w-full
+                ${theme}
+                flex h-screen w-screen
             `}>
-                <Header title={props.title} subtitle={props.subtitle}/>
-                <Content>
-                    {props.children}
-                </Content>
+                <SideMenu />
+                <div className={`
+                    flex flex-col 
+                    bg-gray-300 dark:bg-gray-800
+                    p-7 w-full
+                `}>
+                    <Header title={props.title} subtitle={props.subtitle}/>
+                    <Content>
+                        {props.children}
+                    </Content>
+                </div>
             </div>
-        </div>
+        </ForceAuthentication>
     )
 }
